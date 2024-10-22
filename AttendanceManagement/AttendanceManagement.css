@@ -4,12 +4,23 @@ body, html {
     box-sizing: border-box;
     overflow-x: hidden;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0.1rem;
+    background: rgb(82, 151, 255);
+}
 /* --------------student form -------------- */
 
 table,
 td,
 th {
-border: 1px solid #ddd;
+border: 1.5px solid #ddd;
 text-align: left;
 
 }
@@ -36,7 +47,7 @@ color: white;
 
 .studentData{
     width: 100%;
-    background-color: green;
+    background-color:  rgb(82, 151, 255);
     padding: 15px;
 
 }
@@ -78,6 +89,15 @@ color: white;
 }
 .td6 > button:nth-child(2){
     background-color: red;
+}
+
+.td7 > button{
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
 }
 
 #absent{
