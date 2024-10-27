@@ -1,70 +1,69 @@
-document.getElementById("form1").addEventListener("submit", submitFun1);
+const students = {};
 
-var studentDataArr = JSON.parse(localStorage.getItem("studentData")) || [];
+document.getElementById('form1').addEventListener('submit', function(event) {
+event.preventDefault();
 
-function submitFun1(e) {
-    document.querySelector("#tbody").innerHTML = "";
-    e.preventDefault();
-    var name = document.querySelector("#name").value;
-    var rollNo = document.querySelector("#rollNo").value;
+const name = document.getElementById('name').value;
+const rollNo = document.getElementById('rollNo').value;
 
-    var studentObj = {
-        name: name,
-        rollNo: rollNo
+if (!students[rollNo]) {
+    students[rollNo] = { name, rollNo, attendance: {} };
+}
+
+document.getElementById('form1').reset();
+displayAttendance(new Date().toISOString().split('T')[0]);
+});
+
+document.getElementById('tbody').addEventListener('click', function(event) {
+const row = event.target.closest('tr');
+const rollNo = row.querySelector('.rollNo-cell').textContent;
+const date = document.getElementById('viewDate').value || new Date().toISOString().split('T')[0];
+
+if (event.target.classList.contains('btn-present')) {
+    row.style.backgroundColor = 'lightgreen';
+    students[rollNo].attendance[date] = 'Present';
+} else if (event.target.classList.contains('btn-absent')) {
+    row.style.backgroundColor = 'lightcoral';
+    students[rollNo].attendance[date] = 'Absent';
+} else if (event.target.classList.contains('btn-delete')) {
+    const confirmDelete = confirm("Are you sure you want to delete this record?");
+    if (confirmDelete) {
+    delete students[rollNo];
+    row.remove();
+    }
+}
+});
+
+document.getElementById('viewButton').addEventListener('click', function() {
+const viewDate = document.getElementById('viewDate').value;
+displayAttendance(viewDate);
+});
+
+function displayAttendance(date) {
+const tbody = document.getElementById('tbody');
+tbody.innerHTML = '';
+
+Object.values(students).forEach((student, index) => {
+    const row = document.createElement('tr');
+    
+    row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${student.name}</td>
+    <td class="rollNo-cell">${student.rollNo}</td>
+    <td>${date}</td>
+    <td>
+        <button class="btn-present">Present</button>
+        <button class="btn-absent">Absent</button>
+    </td>
+    <td><button class="btn-delete">Delete</button></td>
+    `;
+    
+    if (student.attendance[date] === 'Present') {
+    row.style.backgroundColor = 'lightgreen';
+    } else if (student.attendance[date] === 'Absent') {
+    row.style.backgroundColor = 'lightcoral';
     }
 
-    studentDataArr.push(studentObj);
-    localStorage.setItem("studentData", JSON.stringify(studentDataArr));
-    document.querySelector("#form1").reset();
-    alert("Student Added Successfully");
-
-    displayFun(studentDataArr);
+    tbody.appendChild(row);
+});
 }
-
-function displayFun(studentDataArr) {
-    var count = 1;
-    studentDataArr.map(function (item, index) {
-        var tr = document.createElement("tr");
-
-        var td1 = document.createElement("td");
-        td1.innerHTML = count++;
-        var td2 = document.createElement("td");
-        td2.innerHTML = item.name;
-        var td5 = document.createElement("td");
-        td5.innerHTML = item.rollNo;
-        var td6 = document.createElement("td");
-        var btn1 = document.createElement("button");
-        btn1.innerHTML = "P";
-        btn1.addEventListener("click", function () {
-            td6.innerHTML = "<button>Present</button>";
-        });
-        var btn2 = document.createElement("button");
-        btn2.innerHTML = "A";
-        btn2.addEventListener("click", function () {
-            td6.innerHTML = "<button id='absent'>Absent</button>";
-        });
-        td6.classList.add("td6");
-        td6.append(btn1, btn2);
-
-        var td7 = document.createElement("td");
-        var deleteBtn = document.createElement("button");
-        deleteBtn.innerHTML = "Delete";
-        deleteBtn.addEventListener("click", function () {
-            deleteStudent(index);
-        });
-        td7.append(deleteBtn);
-
-        tr.append(td1, td2, td5, td6, td7);
-
-        document.querySelector("#tbody").append(tr);
-    });
-}
-
-function deleteStudent(index) {
-    studentDataArr.splice(index, 1);
-    localStorage.setItem("studentData", JSON.stringify(studentDataArr));
-    document.querySelector("#tbody").innerHTML = "";
-    displayFun(studentDataArr);
-}
-
-displayFun(studentDataArr);

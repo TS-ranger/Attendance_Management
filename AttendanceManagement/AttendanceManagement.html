@@ -5,30 +5,52 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="AttendanceManagement.css">
-    <title>Student Manegement</title>
+    <title>Student Management</title>
+    <style>
+      .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .studentData, .viewAttendance {
+          flex: 1;
+          margin: 10px;
+      }
+    </style>
   </head>
   <body>
 
-    <div class="studentData">
-        <form action="" id="form1">
-            <input type="text" placeholder="Name" id="name" required>
-            <input type="number" placeholder="Roll No" id="rollNo" required>
-            <input type="submit" class="btn btn-warning">
-        </form>
+    <div class="header">
+        <div class="studentData">
+            <form action="" id="form1">
+                <input type="text" placeholder="Name" id="name" required>
+                <input type="number" placeholder="Roll No" id="rollNo" required>
+                <input type="submit" class="btn btn-warning">
+            </form>
+        </div>
+
+        <div class="viewAttendance">
+            <input type="date" id="viewDate">
+            <button id="viewButton" class="btn btn-primary">View Attendance</button>
+        </div>
     </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sl. No.</th>
-                    <th>Name</th>
-                    <th>Roll No.</th>
-                    <th>Attendence</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-        </table>
+    <div class="sheet">
+      <table>
+        <thead>
+            <tr>
+                <th>Sl. No.</th>
+                <th>Name</th>
+                <th>Roll No.</th>
+                <th>Date</th>
+                <th>Attendance</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+      </table>
+    </div>
   
     <script src="./AttendanceManagement.js"></script>
   </body>

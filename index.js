@@ -1,5 +1,3 @@
-
-
 document.querySelector("#form").addEventListener("submit", submitFun);
 
 
