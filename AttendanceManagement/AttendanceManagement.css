@@ -1,20 +1,21 @@
-/* body, html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-} */
-
 /* --------------student form -------------- */
 .studentData {
+    flex: 1;
+    margin: 10px;
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
 
+.viewAttendance {
+    flex: 1;
+    margin: 10px;
+}
+
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -25,12 +26,6 @@
     padding: 1.3rem 9%;
     background: rgb(82, 151, 255);
 }
-/* form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-} */
 
 form input[type="text"],
 form input[type="number"],
