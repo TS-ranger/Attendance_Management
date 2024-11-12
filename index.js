@@ -15,6 +15,3 @@ function submitFun(elme) {
         document.querySelector("#form").reset();
     }
 }
-
-
-
